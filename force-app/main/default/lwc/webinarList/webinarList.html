@@ -1,0 +1,7 @@
+<template>
+    <template if:true={records} for:each={records} for:item="record">
+        <div key={record.Id}>
+            <c-webinar-card record-id={record.Id}> </c-webinar-card>
+        </div>
+    </template>
+</template>

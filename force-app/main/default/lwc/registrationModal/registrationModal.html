@@ -1,0 +1,45 @@
+<template>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+          <header class="slds-modal__header">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleClose}>
+              <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse">
+                <span class="slds-assistive-text">Close</span>
+              </lightning-icon>
+            </button>
+            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Register Now</h2>
+            <p class="slds-m-top_x-small">Fill out your information and we will send you an invite to your selected webinar.</p>
+          </header>
+          <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_6-of-12">
+                    <lightning-input type="text" label="First Name" value={firstName} onchange={handleFirstNameChange} required></lightning-input>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <lightning-input type="text" label="Last Name" value={lastName} onchange={handleLastNameChange} required></lightning-input>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <lightning-input type="text" label="Company" value={company} onchange={handleCompanyChange} required></lightning-input>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <lightning-input type="text" label="Job Title" value={title} onchange={handleTitleChange} required></lightning-input>
+                </div>
+                <div class="slds-col slds-size_12-of-12">
+                    <lightning-input type="email" label="Email" value={email} onchange={handleEmailChange} required></lightning-input>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <lightning-input type="text" label="Phone" value={phone} onchange={handlePhoneChange}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_6-of-12 slds-p-around_large">
+                    <lightning-input type="checkbox" label="By checking this box you consent to receive promotional outreach from us" value="false" required></lightning-input>
+                </div>
+            </div>
+          </div>
+          <footer class="slds-modal__footer">
+            <button class="slds-button slds-button_neutral" onclick={handleClose}>Cancel</button>
+            <button class="slds-button slds-button_brand" onclick={handleSave} disabled={requiredFieldsMissing}>Save</button>
+          </footer>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

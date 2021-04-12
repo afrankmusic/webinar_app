@@ -11,13 +11,20 @@
   "views" : [ {
     "componentAttributes" : {
       "footerBackgroundColor" : "rgb(239, 240, 242)",
-      "headerBackgroundColor" : "rgb(239, 240, 242)",
+      "headerBackgroundColor" : "rgb(255, 255, 255)",
       "mainBackgroundColor" : "rgb(255, 255, 255)"
     },
     "componentName" : "community_byo:headerAndFooter",
     "id" : "3df246bb-0922-4cb4-9e6c-6286c1ffb1c0",
     "label" : "Default Header and Footer",
     "regions" : [ {
+      "components" : [ {
+        "componentAttributes" : { },
+        "componentName" : "c:header",
+        "id" : "ef3f6b90-8dcb-40a5-b46f-8aa3dbfa84f2",
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
       "id" : "e688473e-acb5-4340-9ea8-608dd6f21249",
       "regionName" : "header",
       "type" : "region"

@@ -15,11 +15,11 @@ public with sharing class WebinarController {
                 Campaign__c
                 FROM Webinar__c
                 WHERE IsPublic__c = true
-                StartTime__c > :DateTime.now()
+                AND StartTime__c > :System.now()
                 ORDER BY StartTime__c ASC
             ];
-            Security.stripInaccessible(webinars); // enforce field-level security
-            return webinars;
+            SObjectAccessDecision securityDecision = Security.stripInaccessible(AccessType.READABLE, webinars); // enforce field-level security
+            return securityDecision.getRecords();
 
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
@@ -32,19 +32,17 @@ public with sharing class WebinarController {
     @AuraEnabled(cacheable=true)
     public static Webinar__c getWebinarById(Id webinarId) {
         try {
-            Webinar__c webinar = [
+            return [
                 SELECT Id,
                 Name,
                 StartTime__c,
                 Duration__c,
                 Description__c,
-                Owner.Name
+                Owner.Name,
+                Campaign__c
                 FROM Webinar__c
-                WHERE Id = webinarId
+                WHERE Id = :webinarId
             ];
-            Security.stripInaccessible(webinar);
-            return webinar;
-
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
@@ -56,8 +54,9 @@ public with sharing class WebinarController {
      */
     @AuraEnabled
     public static void registerForWebinar(Id webinarId, String firstName, String lastName, String company, String emailAddress, String phoneNumber, String jobTitle) {
-        Webinar__c webinar = getWebinarById(webinarId);
         try {
+            Webinar__c webinar = getWebinarById(webinarId);
+
             if (webinarIsExpired(webinar)) {
                 throw new AuraHandledException('Unable to register since this webinar has already ended.');
             }
@@ -67,7 +66,7 @@ public with sharing class WebinarController {
                 createCampaignMember(webinar.Campaign__c, newLead.Id);
             }
 
-            createWebinarRegistrant(webinar.Id, nweLead.Id);
+            createWebinarRegistrant(webinar.Id, newLead.Id);
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
@@ -77,7 +76,7 @@ public with sharing class WebinarController {
      * Checks to see if the webinar has already passed it's date
      */
     private static Boolean webinarIsExpired(Webinar__c webinar) {
-        return webinar.StartTime__c < DateTime.now();
+        return webinar.StartTime__c < System.now();
     }
 
     /**
