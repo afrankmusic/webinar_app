@@ -1,0 +1,11 @@
+<template>
+    <template if:true={record}>
+        <lightning-card  title={record.Name}>
+            <lightning-button label="Register" slot="actions"></lightning-button>
+            <p class="slds-p-horizontal_small">
+                {record.Description__c}
+            </p>
+            <p slot="footer">Register today to receive a link to join the webinar!</p>
+        </lightning-card>
+    </template>
+</template>

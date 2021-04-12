@@ -1,0 +1,7 @@
+Hi {!Webinar_Registrant__c.Lead__r.FirstName},
+
+Thank your interest in our webinar: {!WebinarRegistrant__c.Webinar__r.Name}!. To join this webinar, please refer to the following information:
+
+Start Time: {!WebinarRegistrant__c.Webinar__r.StartTime__c}
+Duration: {!WebinarRegistrant__c.Webinar__r.Duration__c}
+Join using the following link: {!WebinarRegistrant__c.Webinar__r.Link__c}
