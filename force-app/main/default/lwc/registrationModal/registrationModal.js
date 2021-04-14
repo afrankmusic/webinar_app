@@ -26,12 +26,11 @@ export default class RegistrationModal extends LightningElement {
         })
             .then(() => {
                 const event = new ShowToastEvent({
-                    'title': 'Success!',
-                    'message': 'You have successfully registered for this webinar. ' +
-                               'An invitation has been sent to your email address.',
-                    'variant': 'success',
-                    'mode': 'sticky'
+                    "title": "Success!",
+                    "message": "You have successfully registered!",
+                    "variant": "success"
                 });
+                this.dispatchEvent(event);
                 this.handleClose();
             })
             .catch((error) => {
