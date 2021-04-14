@@ -10,9 +10,9 @@
   "type" : "theme",
   "views" : [ {
     "componentAttributes" : {
-      "footerBackgroundColor" : "rgb(239, 240, 242)",
-      "headerBackgroundColor" : "rgb(255, 255, 255)",
-      "mainBackgroundColor" : "rgb(255, 255, 255)"
+      "footerBackgroundColor" : "rgb(0, 0, 0)",
+      "headerBackgroundColor" : "rgb(0, 0, 0)",
+      "mainBackgroundColor" : "rgb(225, 225, 225)"
     },
     "componentName" : "community_byo:headerAndFooter",
     "id" : "3df246bb-0922-4cb4-9e6c-6286c1ffb1c0",

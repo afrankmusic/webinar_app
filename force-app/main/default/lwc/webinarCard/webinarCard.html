@@ -1,8 +1,13 @@
 <template>
     <template if:true={record}>
-        <lightning-card  title={record.Name}>
-            <div class="slds-p-horizontal_small">
-                <p>
+        <lightning-card  title={record.Name} class="slds-p-bottom_medium">
+            <lightning-button 
+                label="Register Now!" 
+                onclick={openRegistrationModal}
+                slot="actions">
+            </lightning-button>
+            <div class="slds-p-horizontal_medium">
+                <p class="slds-p-bottom_small">
                     {record.Description__c} 
                 </p>
                 <strong>When: </strong> <lightning-formatted-date-time value={record.StartTime__c} year="numeric" month="numeric" day="numeric" hour="2-digit"
@@ -11,7 +16,11 @@
                 <strong>Instructor: </strong> {record.Owner.Name}
             </div>
             <div slot="footer">
-                <lightning-button variant="brand" label="Register Now!" onclick={openRegistrationModal}></lightning-button>
+                <template if:true={webinarTopics}>
+                    <template for:each={webinarTopics} for:item="topic">
+                        <lightning-badge label={topic} key={topic}></lightning-badge>
+                    </template>
+                </template>
             </div>
         </lightning-card>
     </template>

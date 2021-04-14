@@ -6,7 +6,7 @@
   "regions" : [ {
     "components" : [ {
       "componentAttributes" : {
-        "sectionConfig" : "{\"UUID\":\"3ba6b6c8-164d-4507-af90-a10a9039d693\",\"columns\":[{\"UUID\":\"f13b57e2-97ef-4c0a-9bc7-eecc1ed9f2f7\",\"columnName\":\"Column 1\",\"columnKey\":\"col1\",\"columnWidth\":\"9\",\"seedComponents\":[]},{\"UUID\":\"d0ddb557-2228-42e3-94d3-3eef0ecc1020\",\"columnName\":\"Column 2\",\"columnKey\":\"489c4\",\"columnWidth\":\"3\",\"seedComponents\":[]}]}"
+        "sectionConfig" : "{\"UUID\":\"3ba6b6c8-164d-4507-af90-a10a9039d693\",\"columns\":[{\"UUID\":\"f13b57e2-97ef-4c0a-9bc7-eecc1ed9f2f7\",\"columnName\":\"Column 1\",\"columnKey\":\"col1\",\"columnWidth\":\"12\",\"seedComponents\":[]}]}"
       },
       "componentName" : "community_layout:section",
       "id" : "3ba6b6c8-164d-4507-af90-a10a9039d693",
@@ -22,20 +22,6 @@
         "id" : "f13b57e2-97ef-4c0a-9bc7-eecc1ed9f2f7",
         "regionLabel" : "Column 1",
         "regionName" : "col1",
-        "renditionMap" : { },
-        "type" : "region"
-      }, {
-        "components" : [ {
-          "componentAttributes" : { },
-          "componentName" : "c:aboutUs",
-          "id" : "67620cb0-ff7e-4215-b172-c91f9a1e0963",
-          "renderPriority" : "NEUTRAL",
-          "renditionMap" : { },
-          "type" : "component"
-        } ],
-        "id" : "d0ddb557-2228-42e3-94d3-3eef0ecc1020",
-        "regionLabel" : "Column 2",
-        "regionName" : "489c4",
         "renditionMap" : { },
         "type" : "region"
       } ],

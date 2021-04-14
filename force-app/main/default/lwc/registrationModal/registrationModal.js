@@ -1,8 +1,9 @@
 import { LightningElement, api } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import registerForWebinar from '@salesforce/apex/WebinarController.registerForWebinar';
 
 export default class RegistrationModal extends LightningElement {
-    @api webinarId = "a008A000004S47KQAS";
+    @api webinarId;
     firstName;
     lastName;
     company;
@@ -24,12 +25,17 @@ export default class RegistrationModal extends LightningElement {
             jobTitle: this.title
         })
             .then(() => {
-                console.log('success! Soon to be toast mesage');
+                const event = new ShowToastEvent({
+                    'title': 'Success!',
+                    'message': 'You have successfully registered for this webinar. ' +
+                               'An invitation has been sent to your email address.',
+                    'variant': 'success',
+                    'mode': 'sticky'
+                });
                 this.handleClose();
             })
             .catch((error) => {
-                console.log('error occured');
-                console.log(error);
+                console.error(error);
             });
     }
 
@@ -62,15 +68,12 @@ export default class RegistrationModal extends LightningElement {
     }
 
     checkFieldValidity() {
-        console.log('checking validity');
-        console.log(this.template.querySelectorAll('lightning-input'));
         const allValid = [...this.template.querySelectorAll('lightning-input')]
             .reduce((validSoFar, inputCmp) => {
                         console.log('checking for cmp' + inputCmp);
                         inputCmp.reportValidity();
                         return validSoFar && inputCmp.checkValidity();
             }, true);
-        console.log('all valid? ' + allValid);
         return allValid;
     }
 }

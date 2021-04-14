@@ -1,7 +1,38 @@
 <template>
-    <template if:true={records} for:each={records} for:item="record">
-        <div key={record.Id}>
-            <c-webinar-card record-id={record.Id}> </c-webinar-card>
+    <div class="slds-grid slds-wrap slds-gutters">
+        <div class="slds-col slds-size_12-of-12">
+            <p class="slds-text-heading_large">Upcomming Webinars</p>
         </div>
-    </template>
+        <!-- main layout -->
+        <div class="slds-col slds-size_9-of-12">
+            <!-- Search Bar -->
+            <div onkeyup={handleSearch} class="slds-p-bottom_small">
+                <lightning-input
+                name="enter-search"
+                label="Search for a webinar"
+                type="search"
+            ></lightning-input>
+            </div>
+            <!-- Webiar Cards-->
+            <template if:true={records} for:each={records} for:item="record">
+                <div key={record.Id}>
+                    <c-webinar-card record={record} record-id={record.Id}> </c-webinar-card>
+                </div>
+            </template>
+        </div>
+        <!-- Sidebar -->
+        <div class="slds-col slds-size_3-of-12">
+            <lightning-card title="Filter by topics">
+                <div class="slds-p-around_medium">
+                    <lightning-checkbox-group 
+                        name="Filter by topics"
+                        options={webinarTopics}
+                        value={selectedTopics}
+                        onchange={handleTopicSelection}>
+                    </lightning-checkbox-group>
+                </div>
+            </lightning-card>
+        </div>
+    </div>
+
 </template>

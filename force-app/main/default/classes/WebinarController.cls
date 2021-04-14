@@ -4,20 +4,33 @@ public with sharing class WebinarController {
      * Gets all public webinars
      */
     @AuraEnabled(cacheable=true)
-    public static Webinar__c[] getPublicWebinars(){
+    public static Webinar__c[] getPublicWebinars(List<String> topicFilter, String searchTerm){
         try {
-            Webinar__c[] webinars = [
-                SELECT Id,
-                Name,
-                StartTime__c,
-                Duration__c,
-                Description__c,
-                Campaign__c
-                FROM Webinar__c
-                WHERE IsPublic__c = true
-                AND StartTime__c > :System.now()
-                ORDER BY StartTime__c ASC
-            ];
+            String safeSearchTerm = String.escapeSingleQuotes(searchTerm);
+            DateTime now = System.now();
+            System.debug(topicFilter);
+
+            String q =  'SELECT Id, Name, StartTime__c, ' +
+                        'Duration__c, Description__c, Campaign__c, ' + 
+                        'Link__c, Owner.Name, Topics__c ' +
+                        'FROM Webinar__c ' +
+                        'WHERE IsPublic__c = true ' +
+                        'AND StartTime__c > :now ';
+            if (!topicFilter.isEmpty()) {
+                q += 'AND Topics__c includes (';
+                for (String topic : topicFilter) {
+                    q += '\'' + topic + '\',';
+                }
+                q = q.removeEnd(',') + ') ';
+            }
+            if (!String.isBlank(safeSearchTerm)) {
+                q += 'AND Name LIKE \'%' + safeSearchTerm + '%\' ';
+            }
+            q += 'ORDER BY StartTime__c ASC';
+
+            System.debug(q);
+            Webinar__c[] webinars = Database.query(q);
+
             SObjectAccessDecision securityDecision = Security.stripInaccessible(AccessType.READABLE, webinars); // enforce field-level security
             return securityDecision.getRecords();
 
@@ -39,7 +52,9 @@ public with sharing class WebinarController {
                 Duration__c,
                 Description__c,
                 Owner.Name,
-                Campaign__c
+                Campaign__c,
+                Link__c,
+                Topics__c
                 FROM Webinar__c
                 WHERE Id = :webinarId
             ];
@@ -63,10 +78,12 @@ public with sharing class WebinarController {
 
             Lead newLead = createLead(firstName, lastName, company, emailAddress, phoneNumber, jobTitle);
             if (webinar.Campaign__c != null) {
-                createCampaignMember(webinar.Campaign__c, newLead.Id);
+                WebinarHandler.createCampaignMember(webinar.Campaign__c, newLead.Id);
             }
 
-            createWebinarRegistrant(webinar.Id, newLead.Id);
+            WebinarHandler.createWebinarRegistrant(webinar.Id, newLead.Id);
+
+            WebinarHandler.sendInvitationEmail(webinar, newLead);
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
@@ -93,29 +110,5 @@ public with sharing class WebinarController {
         );
         insert newLead;
         return newLead;
-    }
-
-    /**
-     * Checks for existing campaign membership for a lead, and then
-     * if none, will create a CampaignMember
-     */
-    private static void createCampaignMember(Id campaignId, Id leadId) {
-        CampaignMember[] existingCampaignMember = [
-            SELECT Id FROM CampaignMember WHERE CampaignId = :campaignId AND LeadId = :leadId
-        ];
-        
-        if (existingCampaignMember.isEmpty()) {
-            insert new CampaignMember(
-                CampaignId = campaignId,
-                LeadId = leadId
-            );
-        }
-    }
-
-    private static void createWebinarRegistrant(Id webinarId, Id leadId) {
-        insert new WebinarRegistrant__c(
-            Webinar__c = webinarId,
-            Lead__c = leadId
-        );
-    }
+    }   
 }
