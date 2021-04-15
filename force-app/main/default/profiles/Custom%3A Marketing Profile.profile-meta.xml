@@ -3,11 +3,6 @@
     <custom>true</custom>
     <fieldPermissions>
         <editable>false</editable>
-        <field>WebinarRegistrant__c.Registrant__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Webinar__c.Campaign__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -28,7 +23,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Webinar__c.Start_Time__c</field>
+        <field>Webinar__c.StartTime__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <layoutAssignments>
