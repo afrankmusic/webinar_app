@@ -31,7 +31,7 @@ public without sharing class WebinarHandler {
         msg.setFileAttachments(attachments);
         msg.setSubject('Your invitation for: ' + webinar.Name);
         msg.setPlainTextBody('Hi ' + lead.FirstName + ',\n' +
-                            'Join our webinar at... (TODO)');
+                            'Join our webinar at from the calendar invite');
         List<String> toAddresses = new List<String>{lead.Email};
         msg.setToAddresses(toAddresses);
         List<Messaging.SingleEmailMessage> msgsToSend = new List<Messaging.SingleEmailMessage>{msg};
