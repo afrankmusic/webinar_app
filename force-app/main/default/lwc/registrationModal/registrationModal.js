@@ -10,6 +10,7 @@ export default class RegistrationModal extends LightningElement {
     title;
     email;
     phone;
+    registered = false;
 
     handleSave() {
         const fieldsAreValid = this.checkFieldValidity();
@@ -25,13 +26,7 @@ export default class RegistrationModal extends LightningElement {
             jobTitle: this.title
         })
             .then(() => {
-                const event = new ShowToastEvent({
-                    "title": "Success!",
-                    "message": "You have successfully registered!",
-                    "variant": "success"
-                });
-                this.dispatchEvent(event);
-                this.handleClose();
+                this.registered = true;
             })
             .catch((error) => {
                 console.error(error);

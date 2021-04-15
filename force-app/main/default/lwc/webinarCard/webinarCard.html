@@ -1,10 +1,11 @@
 <template>
     <template if:true={record}>
-        <lightning-card  title={record.Name} class="slds-p-bottom_medium">
+        <lightning-card  title={record.Name} class="slds-m-bottom_medium">
             <lightning-button 
                 label="Register Now!" 
                 onclick={openRegistrationModal}
-                slot="actions">
+                slot="actions"
+                variant="brand">
             </lightning-button>
             <div class="slds-p-horizontal_medium">
                 <p class="slds-p-bottom_small">
